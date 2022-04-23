@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { mergeClasses } from '../helpers';
 
 function IconButton(props) {
-  const defaultClasses = 'p-2';
-  const classes = props.className ? defaultClasses + ` ${props.className}` : defaultClasses;
+  const classes = mergeClasses('p-2', props.className);
 
   return (
-    <button className={classes} type="button">
+    <button className={classes} type="button" onClick={props.onClick}>
       {props.children}
     </button>
   );
@@ -15,6 +15,7 @@ function IconButton(props) {
 IconButton.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default IconButton;

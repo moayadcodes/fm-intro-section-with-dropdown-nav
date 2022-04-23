@@ -1,10 +1,11 @@
 import Button from './Button';
-import IconButton from './IconButton';
-import React from 'react';
+import Header from './Header';
+import React, { useState } from 'react';
+import MobileMenu from './MobileMenu';
 
 function App() {
-  const logoUrl = new URL('../images/logo.svg', import.meta.url);
-  const menuIconUrl = new URL('../images/icon-menu.svg', import.meta.url);
+  const [menuIsVisible, setMenuIsVisible] = useState(false);
+
   const mobileHeroUrl = new URL('../images/image-hero-mobile.png', import.meta.url);
   const clientLogos = [
     {
@@ -29,28 +30,18 @@ function App() {
     },
   ];
 
-  const clientLogoImages = clientLogos.map(logo => (
-    <li key={logo.label}>
-      <img className={logo.heightClass} src={logo.url} alt={logo.label} />
-    </li>
-  ));
+  function handleMenuButtonClick() {
+    setMenuIsVisible(true);
+  }
+
+  function handleMenuDeactivate() {
+    setMenuIsVisible(false);
+  }
 
   return (
     <>
-      <header>
-        <div className="container">
-          <div className="flex items-center justify-between pt-4">
-            <h1>
-              <a className="block pt-[calc(7%/84*100)]" href="/">
-                <img src={logoUrl} alt="Snap" width="84" height="27" />
-              </a>
-            </h1>
-            <IconButton className="translate-x-2">
-              <img src={menuIconUrl} alt="Open menu" width="32" height="18" />
-            </IconButton>
-          </div>
-        </div>
-      </header>
+      <Header onMenuButtonClick={handleMenuButtonClick} />
+      <MobileMenu isVisible={menuIsVisible} onDeactivate={handleMenuDeactivate} />
       <main className="pb-12">
         <img className="mt-6 mb-12" src={mobileHeroUrl} alt="" width="750" height="564" />
         <div className="container">
@@ -61,7 +52,11 @@ function App() {
               <Button url="#">Learn more</Button>
             </div>
             <ul className="flex items-center justify-between mt-12">
-              {clientLogoImages}
+              {clientLogos.map(logo => (
+                <li key={logo.label}>
+                  <img className={logo.heightClass} src={logo.url} alt={logo.label} />
+                </li>
+              ))}
             </ul>
           </div>
         </div>
