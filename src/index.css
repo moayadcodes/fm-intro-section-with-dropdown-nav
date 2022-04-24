@@ -4,6 +4,14 @@
 
 @layer components {
   .container {
-    @apply px-4;
+    @apply px-4
+           md:px-6
+           xl:px-10;
+  }
+
+  .container-constrained {
+    @apply max-w-md mx-auto
+           lg:max-w-[74.625rem]
+           xl:max-w-[76.625rem];
   }
 }

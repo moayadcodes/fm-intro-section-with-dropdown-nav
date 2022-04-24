@@ -14,6 +14,9 @@ module.exports = {
       fontFamily: {
         sans: ['Epilogue', 'sans-serif'],
       },
+      fontSize: {
+        '7xl': ['5rem', { lineHeight: '1' }],
+      },
     },
   },
   plugins: [],
