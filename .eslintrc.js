@@ -21,7 +21,10 @@ module.exports = {
     'react-hooks',
   ],
   'rules': {
-    'comma-dangle': ['error', 'always-multiline'],
+    'comma-dangle': ['error', {
+      'arrays': 'always-multiline',
+      'objects': 'always-multiline',
+    }],
     'indent': ['error', 2],
     'quotes': ['error', 'single', { 'avoidEscape': true }],
     'semi': ['error', 'always'],

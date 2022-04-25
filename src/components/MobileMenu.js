@@ -1,65 +1,13 @@
 import IconButton from './IconButton';
 import FocusTrap from 'focus-trap-react';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import MobileMenuItem from './MobileMenuItem';
+import React, { useCallback, useEffect } from 'react';
+import MenuItem from './MobileMenuItem';
+import debounce from 'lodash.debounce';
+import * as menuItems from '../menu.json';
 
 function MobileMenu(props) {
   const menuCloseIconUrl = new URL('../images/icon-close-menu.svg', import.meta.url);
-  const menuItems = [
-    {
-      url: '#',
-      label: 'Features',
-      menuItems: [
-        {
-          url: '#',
-          label: 'Todo List',
-          icon: new URL('../images/icon-todo.svg', import.meta.url),
-        },
-        {
-          url: '#',
-          label: 'Calendar',
-          icon: new URL('../images/icon-calendar.svg', import.meta.url),
-        },
-        {
-          url: '#',
-          label: 'Reminders',
-          icon: new URL('../images/icon-reminders.svg', import.meta.url),
-        },
-        {
-          url: '#',
-          label: 'Planning',
-          icon: new URL('../images/icon-planning.svg', import.meta.url),
-        },
-      ],
-    },
-    {
-      url: '#',
-      label: 'Company',
-      menuItems: [
-        {
-          url: '#',
-          label: 'History',
-        },
-        {
-          url: '#',
-          label: 'Our Team',
-        },
-        {
-          url: '#',
-          label: 'Blog',
-        },
-      ],
-    },
-    {
-      url: '#',
-      label: 'Careers',
-    },
-    {
-      url: '#',
-      label: 'About',
-    },
-  ];
 
   useEffect(() => {
     if (props.isVisible) {
@@ -69,6 +17,23 @@ function MobileMenu(props) {
     }
   });
 
+  useEffect(() => {
+    window.addEventListener('resize', checkIfDesktopView);
+
+    return () => {
+      window.removeEventListener('resize', checkIfDesktopView);
+    };
+  }, []);
+
+  const checkIfDesktopView = useCallback(
+    debounce(() => {
+      if (window.innerWidth >= 1024) {
+        props.onDeactivate();
+      }
+    }, 125),
+    []
+  );
+
   if (!props.isVisible) {
     return null;
   }
@@ -76,7 +41,7 @@ function MobileMenu(props) {
   return (
     <FocusTrap focusTrapOptions={{ onDeactivate: props.onDeactivate }}>
       <div className="bg-black/70 fixed top-0 left-0 w-full h-full">
-        <div className="bg-white pt-3.5 pl-6 pr-3 ml-auto max-w-[15rem] min-h-full">
+        <div className="bg-white pt-3.5 pl-6 pr-3 ml-auto max-w-[15rem] min-h-full md:pr-5">
           <div className="text-right">
             <IconButton className="ml-auto" onClick={props.onDeactivate}>
               <img src={menuCloseIconUrl} alt="Hide menu" width="26" height="26" loading="lazy" />
@@ -84,7 +49,7 @@ function MobileMenu(props) {
           </div>
           <nav className="mt-4">
             <ul>
-              {menuItems.map(menuItem => <MobileMenuItem key={menuItem.label} menuItem={menuItem} />)}
+              {menuItems.map(menuItem => <MenuItem key={menuItem.label} menuItem={menuItem} />)}
             </ul>
           </nav>
         </div>

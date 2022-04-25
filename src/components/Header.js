@@ -1,6 +1,8 @@
+import DesktopMenu from './DesktopMenu';
 import IconButton from './IconButton';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Button from './Button';
 
 function Header(props) {
   const logoUrl = new URL('../images/logo.svg', import.meta.url);
@@ -9,13 +11,20 @@ function Header(props) {
   return (
     <header>
       <div className="container">
-        <div className="flex items-center justify-between pt-4">
+        <div className="flex items-center justify-between pt-4 lg:justify-start xl:pt-6">
           <h1>
             <a className="block pt-[calc(7%/84*100)]" href="/">
               <img src={logoUrl} alt="Snap" width="84" height="27" />
             </a>
           </h1>
-          <IconButton className="translate-x-2" onClick={props.onMenuButtonClick}>
+          <div className="ml-16 hidden lg:block">
+            <DesktopMenu />
+          </div>
+          <div className="hidden lg:block lg:ml-auto">
+            <a className="text-sm tracking-tight mr-10" href="">Login</a>
+            <Button url="#">Register</Button>
+          </div>
+          <IconButton className="translate-x-2 lg:hidden" onClick={props.onMenuButtonClick}>
             <img src={menuIconUrl} alt="Show menu" width="32" height="18" />
           </IconButton>
         </div>

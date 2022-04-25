@@ -44,7 +44,7 @@ function App() {
     <>
       <Header onMenuButtonClick={handleMenuButtonClick} />
       <MobileMenu isVisible={menuIsVisible} onDeactivate={handleMenuDeactivate} />
-      <main className="pb-12 lg:pt-16">
+      <main className="pb-12 lg:pt-16 lg:pb-14 xl:pb-24">
         <div className="container-constrained lg:hidden">
           <img className="mt-6 mb-12" src={mobileHeroUrl} alt="" width="750" height="564" />
         </div>
@@ -54,9 +54,9 @@ function App() {
               <h2 className="text-4xl text-neutral-900 font-bold tracking-tight lg:text-7xl">
                 Make <span className="lg:whitespace-nowrap">remote work</span>
               </h2>
-              <p className="leading-relaxed mt-4 lg:text-lg lg:max-w-md lg:mt-12">Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.</p>
+              <p className="leading-relaxed mt-4 lg:text-lg lg:tracking-tight lg:max-w-md lg:mt-12">Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.</p>
               <div className="mt-6 lg:mt-12">
-                <Button url="#">Learn more</Button>
+                <Button url="#" isCta size="large">Learn more</Button>
               </div>
               <ul className="flex items-center justify-between mt-12 lg:max-w-[30rem] lg:mt-14 xl:mt-[6.5rem]">
                 {clientLogos.map(logo => (
