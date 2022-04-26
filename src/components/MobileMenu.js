@@ -2,7 +2,7 @@ import IconButton from './IconButton';
 import FocusTrap from 'focus-trap-react';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect } from 'react';
-import MenuItem from './MobileMenuItem';
+import MenuItem from './MenuItem';
 import debounce from 'lodash.debounce';
 import * as menuItems from '../menu.json';
 

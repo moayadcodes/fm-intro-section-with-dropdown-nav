@@ -1,4 +1,4 @@
-import MenuItem from './MobileMenuItem';
+import MenuItem from './MenuItem';
 import React from 'react';
 import * as menuItems from '../menu.json';
 
