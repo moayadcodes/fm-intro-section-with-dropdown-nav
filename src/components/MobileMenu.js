@@ -1,7 +1,7 @@
 import IconButton from './IconButton';
 import FocusTrap from 'focus-trap-react';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import MenuItem from './MenuItem';
 import debounce from 'lodash.debounce';
 import * as menuItems from '../menu.json';
@@ -9,6 +9,18 @@ import * as menuItems from '../menu.json';
 function MobileMenu(props) {
   const menuCloseIconUrl = new URL('../images/icon-close-menu.svg', import.meta.url);
 
+  // TODO: Refactor - repeated from DesktopMenu
+  const [indexWithActiveDropdown, setIndexWithActiveDropdown] = useState(null);
+
+  function handleDropdownActivated(index) {
+    if (index === indexWithActiveDropdown) {
+      setIndexWithActiveDropdown(null);
+    } else {
+      setIndexWithActiveDropdown(index);
+    }
+  }
+
+  // Disable scrolling outside of menu
   useEffect(() => {
     if (props.isVisible) {
       document.body.classList.add('overflow-hidden');
@@ -17,6 +29,7 @@ function MobileMenu(props) {
     }
   });
 
+  // Hide menu on desktop
   useEffect(() => {
     window.addEventListener('resize', checkIfDesktopView);
 
@@ -49,7 +62,15 @@ function MobileMenu(props) {
           </div>
           <nav className="mt-4">
             <ul>
-              {menuItems.map(menuItem => <MenuItem key={menuItem.label} menuItem={menuItem} />)}
+              {menuItems.map((menuItem, index) => (
+                <MenuItem
+                  key={menuItem.label}
+                  menuItem={menuItem}
+                  index={index}
+                  dropdownIsActive={index === indexWithActiveDropdown}
+                  onDropdownActivated={handleDropdownActivated}
+                />
+              ))}
             </ul>
           </nav>
         </div>

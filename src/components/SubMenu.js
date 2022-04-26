@@ -17,6 +17,10 @@ function SubMenu(props) {
     ? 'flex items-center whitespace-nowrap py-1.5'
     : 'flex items-center py-2';
 
+  if (!props.isActive) {
+    return null;
+  }
+
   return (
     <ul className={menuClasses}>
       {props.menuItems.map(menuItem => (
@@ -39,10 +43,12 @@ SubMenu.propTypes = {
   alignment: PropTypes.oneOf(['left', 'right']),
   context: PropTypes.oneOf(['mobile', 'desktop']),
   menuItems: PropTypes.array,
+  isActive: PropTypes.bool,
 };
 
 SubMenu.defaultProps = {
   context: 'mobile',
+  isActive: false,
 };
 
 export default SubMenu;
