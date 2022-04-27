@@ -13,9 +13,17 @@ function MenuItem(props) {
     ? (props.index === 0 ? 'right' : 'left')
     : null;
 
-  const containerClasses = inDesktopMenu ? 'text-sm tracking-tight relative ml-10 first:ml-0' : null;
-  const menuItemClasses = inDesktopMenu ? 'flex items-center py-2' : 'flex items-center py-2';
+  const containerClasses = inDesktopMenu ? 'text-sm tracking-tight relative ml-6 first:ml-0' : null;
+  let menuItemClasses = 'menu-item flex items-center py-2';
   const dropdownIconClasses = inDesktopMenu ? 'ml-2' : 'ml-3.5';
+
+  if (inDesktopMenu) {
+    menuItemClasses += ' px-2';
+  }
+
+  if (dropdownIsActive) {
+    menuItemClasses += ' text-neutral-900';
+  }
 
   function handleClick(event) {
     event.preventDefault();

@@ -2,16 +2,18 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 function Button(props) {
-  let classes = 'inline-block tracking-tight';
+  let classes = 'border-2 inline-block tracking-tight rounded-[0.875rem] outline-0';
+  classes += ' hover:text-neutral-900'; // Base hover styles
+  classes += ' focus:text-neutral-900 focus:ring-4 focus:ring-neutral-900/25'; // Base focus styles
 
   if (props.isCta) {
-    classes += ' bg-neutral-900 text-neutral-50 px-6 rounded-2xl';
+    classes += ' border-neutral-900 bg-neutral-900 text-neutral-50 px-[1.375rem] hover:bg-transparent focus:bg-transparent';
   } else {
-    classes += ' border-2 border-neutral-500 px-[1.375rem] rounded-[0.875rem]';
+    classes += ' border-neutral-500 px-[1.375rem] hover:border-neutral-900 focus:border-neutral-900';
   }
 
   if (props.size === 'large') {
-    classes += ' py-3 lg:text-lg lg:px-8 lg:py-3.5';
+    classes += ' py-2.5 lg:text-lg lg:px-[1.875rem] lg:py-3';
   } else {
     classes += ' text-sm py-2';
   }

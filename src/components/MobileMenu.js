@@ -54,7 +54,12 @@ function MobileMenu(props) {
   return (
     <FocusTrap focusTrapOptions={{ onDeactivate: props.onDeactivate }}>
       <div className="bg-black/70 fixed top-0 left-0 w-full h-full">
-        <div className="bg-white pt-3.5 pl-6 pr-3 ml-auto max-w-[15rem] min-h-full md:pr-5">
+        <div
+          className="bg-white pt-3.5 pl-6 pr-3 ml-auto max-w-[15rem] min-h-full md:pr-5"
+          role="dialog"
+          aria-label="Website menu"
+          aria-modal="true"
+        >
           <div className="text-right">
             <IconButton className="ml-auto" onClick={props.onDeactivate}>
               <img src={menuCloseIconUrl} alt="Hide menu" width="26" height="26" loading="lazy" />

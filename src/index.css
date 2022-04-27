@@ -14,4 +14,8 @@
            lg:max-w-[74.625rem]
            xl:max-w-[76.625rem];
   }
+
+  .menu-item {
+    @apply text-sm tracking-tight hover:text-neutral-900 focus:text-neutral-900;
+  }
 }

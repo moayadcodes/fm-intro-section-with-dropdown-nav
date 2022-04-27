@@ -17,11 +17,11 @@ function Header(props) {
               <img src={logoUrl} alt="Snap" width="84" height="27" />
             </a>
           </h1>
-          <div className="ml-16 hidden lg:block">
+          <div className="ml-14 hidden lg:block">
             <DesktopMenu />
           </div>
           <div className="hidden lg:block lg:ml-auto">
-            <a className="text-sm tracking-tight mr-10" href="">Login</a>
+            <a className="menu-item p-2 mr-8" href="#">Login</a>
             <Button url="#">Register</Button>
           </div>
           <IconButton className="translate-x-2 lg:hidden" onClick={props.onMenuButtonClick}>
