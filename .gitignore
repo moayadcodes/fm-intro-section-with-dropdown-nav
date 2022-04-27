@@ -20,4 +20,3 @@ node_modules/
 
 # Parcel-related files and folders
 .parcel-cache/
-dist/
