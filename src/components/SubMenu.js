@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import * as images from '../images/*.svg';
+import { cssClasses } from '../helpers';
 
 function SubMenu(props) {
   const inDesktopMenu = props.context === 'desktop';
 
-  let menuClasses = inDesktopMenu
-    ? 'bg-white px-4 py-4 rounded-lg shadow-dropdown absolute top-12 z-10'
-    : 'py-2 pl-5';
+  const menuClasses = cssClasses({
+    'bg-white px-4 py-4 rounded-lg shadow-dropdown absolute top-12 z-10': inDesktopMenu,
+    'right-0': inDesktopMenu && props.alignment === 'right',
+    'left-0': inDesktopMenu && props.alignment === 'left',
+    'py-2 pl-5': !inDesktopMenu,
+  });
 
-  if (inDesktopMenu) {
-    menuClasses += (props.alignment === 'right' ? ' right-0' : ' left-0');
-  }
-
-  const menuItemClasses = 'flex items-center hover:text-neutral-900 focus:text-neutral-900' + (
-    inDesktopMenu
-      ? ' whitespace-nowrap px-2 py-1.5'
-      : ' py-2'
-  );
+  const menuItemClasses = cssClasses({
+    'flex items-center hover:text-neutral-900 focus:text-neutral-900': true,
+    'whitespace-nowrap px-2 py-1.5': inDesktopMenu,
+    'py-2': !inDesktopMenu,
+  });
 
   if (!props.isActive) {
     return null;

@@ -12,14 +12,6 @@ function MobileMenu(props) {
   // TODO: Refactor - repeated from DesktopMenu
   const [indexWithActiveDropdown, setIndexWithActiveDropdown] = useState(null);
 
-  function handleDropdownActivated(index) {
-    if (index === indexWithActiveDropdown) {
-      setIndexWithActiveDropdown(null);
-    } else {
-      setIndexWithActiveDropdown(index);
-    }
-  }
-
   // Disable scrolling outside of menu
   useEffect(() => {
     if (props.isVisible) {
@@ -38,6 +30,22 @@ function MobileMenu(props) {
     };
   }, []);
 
+  /* Helpers */
+
+  function handleDeactivate() {
+    setIndexWithActiveDropdown(null);
+    props.onDeactivate();
+  }
+
+  // TODO: Refactor - repeated from DesktopMenu
+  function handleDropdownActivated(index) {
+    if (index === indexWithActiveDropdown) {
+      setIndexWithActiveDropdown(null);
+    } else {
+      setIndexWithActiveDropdown(index);
+    }
+  }
+
   const checkIfDesktopView = useCallback(
     debounce(() => {
       if (window.innerWidth >= 1024) {
@@ -52,7 +60,7 @@ function MobileMenu(props) {
   }
 
   return (
-    <FocusTrap focusTrapOptions={{ onDeactivate: props.onDeactivate }}>
+    <FocusTrap focusTrapOptions={{ onDeactivate: handleDeactivate }}>
       <div className="bg-black/70 fixed top-0 left-0 w-full h-full">
         <div
           className="bg-white pt-3.5 pl-6 pr-3 ml-auto max-w-[15rem] min-h-full md:pr-5"

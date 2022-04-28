@@ -1,37 +1,66 @@
 import ArrowDownIcon from './ArrowDownIcon';
 import ArrowUpIcon from './ArrowUpIcon';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { createRef, useEffect } from 'react';
 import SubMenu from './SubMenu';
+import { cssClasses } from '../helpers';
 
 function MenuItem(props) {
+  const containerRef = createRef();
   const menuItem = props.menuItem;
   const inDesktopMenu = props.context === 'desktop';
   const hasDropdown = menuItem.menuItems ? true : false;
-  const dropdownIsActive = props.dropdownIsActive;
+  const dropdownIsActive = hasDropdown && props.dropdownIsActive;
   const subMenuAlignment = inDesktopMenu
     ? (props.index === 0 ? 'right' : 'left')
     : null;
 
-  const containerClasses = inDesktopMenu ? 'text-sm tracking-tight relative ml-6 first:ml-0' : null;
-  let menuItemClasses = 'menu-item flex items-center py-2';
-  const dropdownIconClasses = inDesktopMenu ? 'ml-2' : 'ml-3.5';
+  // CSS classes
+  const containerClasses = cssClasses({ 'text-sm tracking-tight relative ml-6 first:ml-0': inDesktopMenu });
+  const menuItemClasses = cssClasses({
+    'menu-item flex items-center py-2': true,
+    'px-2': inDesktopMenu,
+    'text-neutral-900': dropdownIsActive,
+  });
+  const dropdownIconClasses = cssClasses({
+    'ml-2': inDesktopMenu,
+    'ml-3.5': !inDesktopMenu,
+  });
 
-  if (inDesktopMenu) {
-    menuItemClasses += ' px-2';
-  }
+  // Deactivate dropdown on esc key press or outside click
+  useEffect(() => {
+    if (inDesktopMenu && dropdownIsActive) {
+      document.addEventListener('keyup', handleKeyUp);
+      document.addEventListener('click', handleDocumentClick);
+  
+      return () => {
+        document.removeEventListener('keyup', handleKeyUp);
+        document.removeEventListener('click', handleDocumentClick);
+      };
+    }
+  });
 
-  if (dropdownIsActive) {
-    menuItemClasses += ' text-neutral-900';
-  }
+  /* Helpers */
 
   function handleClick(event) {
     event.preventDefault();
     props.onDropdownActivated(props.index);
   }
 
+  function handleKeyUp(event) {
+    if (event.key === 'Escape') {
+      props.onDropdownDeactivated();
+    }
+  }
+
+  function handleDocumentClick(event) {
+    if (event.target !== containerRef.current && !containerRef.current.contains(event.target)) {
+      props.onDropdownDeactivated();
+    }
+  }
+
   return (
-    <li className={containerClasses}>
+    <li className={containerClasses} ref={containerRef}>
       <a
         className={menuItemClasses}
         href={hasDropdown ? '#' : menuItem.url}
@@ -63,6 +92,7 @@ MenuItem.propTypes = {
   index: PropTypes.number,
   menuItem: PropTypes.object.isRequired,
   onDropdownActivated: PropTypes.func,
+  onDropdownDeactivated: PropTypes.func,
 };
 
 MenuItem.defaultProps = {

@@ -13,6 +13,10 @@ function DesktopMenu() {
     }
   }
 
+  function handleDropdownDeactivated() {
+    setIndexWithActiveDropdown(null);
+  }
+
   return (
     <nav>
       <ul className="flex">
@@ -24,6 +28,7 @@ function DesktopMenu() {
             index={index}
             dropdownIsActive={index === indexWithActiveDropdown}
             onDropdownActivated={handleDropdownActivated}
+            onDropdownDeactivated={handleDropdownDeactivated}
           />
         ))}
       </ul>

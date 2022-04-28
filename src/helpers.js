@@ -1,7 +1,12 @@
-export function mergeClasses(defaultClasses, additionalClasses) {
-  if (!additionalClasses) {
-    return defaultClasses;
-  }
+export function cssClasses(classesObject) {
+  const classesArray = Object
+    .entries(classesObject)
+    .filter(entry => entry[1])
+    .map(entry => entry[0]);
 
-  return `${defaultClasses} ${additionalClasses}`;
+  return classesArray.length ? classesArray.join(' ') : null;
+}
+
+export function mergeClasses(defaultClasses, additionalClasses) {
+  return additionalClasses ? `${defaultClasses} ${additionalClasses}` : defaultClasses;
 }
