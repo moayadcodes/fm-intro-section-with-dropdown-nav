@@ -13,7 +13,7 @@ function Header(props) {
       <div className="container">
         <div className="flex items-center justify-between pt-4 lg:justify-start xl:pt-6">
           <h1>
-            <a className="block pt-[calc(7%/84*100)]" href="/">
+            <a className="block pt-[calc(7%/84*100)]" href="">
               <img src={logoUrl} alt="Snap" width="84" height="27" />
             </a>
           </h1>
